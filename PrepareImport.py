@@ -1,4 +1,5 @@
 import pyodbc
+from datetime import datetime
 
 def GetMaxCovidDate():
     cnxn = None
@@ -14,10 +15,13 @@ def GetMaxCovidDate():
     cursor.execute("SELECT dbo.Get_Max_Collected_On();")
 
     max_date = cursor.fetchone()
-    print(max_date)
+    #recent_date = max_date.strftime("%Y-%m-%d")
+    #print(recent_date)
     cursor.close()
 
     return max_date[0]
 
 if __name__ == '__main__':
-    maxDate = GetMaxCovidDate()
+    recent_date = GetMaxCovidDate()
+    cutoff_date = recent_date.strftime("%m-%d-%Y")
+    print(cutoff_date)
